@@ -14,6 +14,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _passwordController = TextEditingController();
   final _firebaseService = FirebaseService();
   bool _isLogin = true;
+  bool _isLoading = false;
 
   String? _validatePassword(String password) {
     if (password.length < 8) return 'Password must be at least 8 characters';
@@ -46,6 +47,8 @@ class _AuthScreenState extends State<AuthScreen> {
       }
     }
 
+    setState(() => _isLoading = true);
+
     try {
       if (_isLogin) {
         await _firebaseService.signIn(email, password);
@@ -67,6 +70,8 @@ class _AuthScreenState extends State<AuthScreen> {
           SnackBar(content: Text('Error: ${e.toString()}')),
         );
       }
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -156,7 +161,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: _submit,
+                          onPressed: _isLoading ? null : _submit,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.shade600,
                             foregroundColor: Colors.white,
@@ -165,10 +170,19 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             elevation: 3,
                           ),
-                          child: Text(
-                            _isLogin ? 'Login' : 'Sign Up',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
+                          child: _isLoading
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                  ),
+                                )
+                              : Text(
+                                  _isLogin ? 'Login' : 'Sign Up',
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
                         ),
                       ),
                       SizedBox(height: 16),
