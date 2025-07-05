@@ -202,6 +202,14 @@ flutter format --set-exit-if-changed .
 4. Run tests and analyzer
 5. Submit a pull request
 
+## Version History
+
+- **v1.0.0** - Initial release with Firebase integration
+- Complete CRUD operations for notes
+- Modern UI with Material Design 3
+- Strong password validation
+- Zero Dart analyzer warnings
+
 ## License
 
 This project is licensed under the MIT License.
