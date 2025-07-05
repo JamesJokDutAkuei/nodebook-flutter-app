@@ -188,7 +188,9 @@ class _NotesScreenState extends State<NotesScreen> {
       value: _notesBloc,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('My Notes'),
+          title: Text('My Notes', style: TextStyle(fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.blue.shade600,
+          foregroundColor: Colors.white,
           actions: [
             IconButton(
               icon: Icon(Icons.logout),
