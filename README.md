@@ -90,8 +90,8 @@ lib/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd nodebook
+   git clone https://github.com/JamesJokDutAkuei/nodebook-flutter-app.git
+   cd nodebook-flutter-app
    ```
 
 2. **Install dependencies**
